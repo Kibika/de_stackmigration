@@ -1,0 +1,30 @@
+  version: "2"
+  services:  
+    postgres:
+      image: postgres:9.6-alpine
+      env_file: redash.env
+      restart: always
+      environment:
+        POSTGRES_USER: root   
+        POSTGRES_PASSWORD: password    
+        POSTGRES_DB : projectdb 
+      ports:
+        - "5432:5432"  
+      volumes:
+        - ./data/postgres_data:/var/lib/postgresql/data
+      logging:
+          options:
+              max-size: 10m
+              max-file: "3"
+ 
+    pgadmin:
+      image: dpage/pgadmin4
+      restart: always
+      environment:
+        PGADMIN_DEFAULT_EMAIL: root@root.com
+        PGADMIN_DEFAULT_PASSWORD: root
+      ports:
+        - "5050:80"
+      volumes:
+        - ./data/pgadmin-data:/var/lib/pgadmin
+
