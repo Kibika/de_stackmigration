@@ -1,0 +1,41 @@
+version: 2
+
+sources:
+  - name: sensor_db
+    tables:
+      - name: sensordata
+        description: 'Larger PEMS data'
+      - name: station_summary
+        description: 'Summary statistics for each station'
+        columns:
+          - name: ID
+            description: 'unique station id'
+            tests:
+              - unique
+              - not_null
+      - name: maindata
+        description: 'Sensor data for I80 corridor'
+        columns:
+          - name: source_id
+            description: 'unique station id'
+            tests:
+              - not_null
+      - name: metadata
+        description: 'metadata for each station'
+        columns:
+          - name: ID
+            description: 'unique station id'
+            tests:
+              - unique
+              - not_null
+
+models:
+  - name: add_metadata_to_main
+    description: 'Add the metadata associated with each station to the main data'
+  - name: agg_by_hour_id
+    description: 'obtain average flow, speed and occupancy for each station for every hour'
+  - name: agg_by_hour
+    description: 'obtain average flow, speed and occupancy for for every hour'
+  - name: agg_by_source_trave
+    description: 'obtain average time spent in a given station'
+
